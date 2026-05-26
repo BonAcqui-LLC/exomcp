@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Research & Publications | ExoMCP</title>
+  <meta name="description" content="ExoMCP research publications on AI behavioral integrity, MCP security, and agentic system risk. Non-operational threat briefs for frontier AI safety teams.">
+  <meta name="robots" content="index, follow">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg: #f9fafb;
+      --fg: #0a0f1a;
+      --accent-mid: #1c3d6e;
+      --accent-light: #e8eef6;
+      --rule: #dde3ec;
+      --red: #c0392b;
+      --red-light: #fdf2f2;
+      --mono: 'Courier New', Courier, monospace;
+      --serif: Georgia, 'Times New Roman', serif;
+    }
+
+    html { font-size: 18px; }
+    body {
+      background: var(--bg);
+      color: var(--fg);
+      font-family: Arial, Helvetica, sans-serif;
+      line-height: 1.65;
+    }
+
+    /* NAV */
+    nav { background: var(--fg); padding: 0 2rem; }
+    .nav-inner {
+      max-width: 900px; margin: 0 auto;
+      display: flex; align-items: center; justify-content: space-between;
+      height: 52px;
+    }
+    .nav-left { display: flex; align-items: center; gap: 2rem; }
+    .site-name {
+      font-size: 0.95rem; font-weight: 700; color: #fff;
+      text-decoration: none; font-family: var(--mono); letter-spacing: 0.04em;
+    }
+    nav a.nav-link {
+      font-size: 0.72rem; color: rgba(255,255,255,0.5);
+      text-decoration: none; transition: color 0.15s;
+    }
+    nav a.nav-link:hover { color: #fff; }
+    nav a.nav-link.active { color: #fff; }
+
+    /* HERO */
+    .hero {
+      background: var(--fg); color: #fff;
+      padding: 3.5rem 2rem 3rem;
+      border-bottom: 3px solid var(--accent-mid);
+    }
+    .hero-inner { max-width: 900px; margin: 0 auto; }
+    .hero h1 { font-size: 2rem; font-weight: 700; font-family: var(--mono); margin-bottom: 0.6rem; }
+    .hero h1 span { color: #4a9eff; }
+    .hero p { font-size: 0.95rem; color: rgba(255,255,255,0.6); font-family: var(--serif); font-style: italic; max-width: 580px; }
+
+    /* MAIN */
+    main { max-width: 900px; margin: 0 auto; padding: 3rem 2rem 5rem; }
+
+    /* FEATURED PAPER */
+    .featured {
+      border: 1px solid var(--rule);
+      border-top: 4px solid var(--red);
+      background: #fff;
+      margin-bottom: 3rem;
+      overflow: hidden;
+    }
+    .featured-ribbon {
+      background: var(--red);
+      color: #fff;
+      font-size: 0.62rem;
+      font-family: var(--mono);
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      padding: 0.3rem 1rem;
+      display: inline-block;
+      margin: 1.5rem 0 0 1.5rem;
+    }
+    .featured-inner { padding: 1.2rem 1.8rem 2rem; }
+    .paper-meta {
+      font-size: 0.65rem; font-family: var(--mono);
+      color: rgba(0,0,0,0.35); letter-spacing: 0.06em;
+      text-transform: uppercase; margin-bottom: 0.8rem;
+      display: flex; gap: 1.2rem; flex-wrap: wrap;
+    }
+    .featured h2 {
+      font-size: 1.4rem; font-weight: 700; color: var(--fg);
+      margin-bottom: 0.5rem; line-height: 1.25;
+    }
+    .featured .subtitle {
+      font-size: 0.9rem; color: #2a3a50;
+      font-family: var(--serif); font-style: italic;
+      margin-bottom: 1.2rem;
+    }
+    .abstract {
+      font-size: 0.88rem; color: #2a3a50;
+      line-height: 1.7; margin-bottom: 1.5rem;
+      border-left: 3px solid var(--rule);
+      padding-left: 1rem;
+    }
+    .abstract strong { color: var(--fg); font-style: normal; }
+
+    .tag-row { display: flex; flex-wrap: wrap; gap: 0.4rem; margin-bottom: 1.5rem; }
+    .tag {
+      font-size: 0.62rem; font-family: var(--mono);
+      background: var(--accent-light); color: var(--accent-mid);
+      padding: 0.2rem 0.6rem; border-radius: 2px;
+      letter-spacing: 0.05em; text-transform: uppercase;
+    }
+    .tag.red { background: var(--red-light); color: var(--red); }
+
+    .paper-actions { display: flex; gap: 1rem; align-items: center; flex-wrap: wrap; }
+    .btn-primary {
+      display: inline-block;
+      background: var(--fg); color: #fff;
+      font-size: 0.78rem; font-family: var(--mono);
+      font-weight: 700; padding: 0.65rem 1.4rem;
+      text-decoration: none; letter-spacing: 0.04em;
+      transition: background 0.15s;
+    }
+    .btn-primary:hover { background: var(--accent-mid); }
+    .btn-secondary {
+      display: inline-block;
+      border: 1px solid var(--rule); color: var(--accent-mid);
+      font-size: 0.75rem; font-family: var(--mono);
+      padding: 0.6rem 1.2rem; text-decoration: none;
+      transition: border-color 0.15s, color 0.15s;
+    }
+    .btn-secondary:hover { border-color: var(--accent-mid); color: var(--fg); }
+
+    /* KEY CLAIMS */
+    .claims-strip {
+      background: var(--accent-light);
+      border: 1px solid var(--rule);
+      padding: 1.5rem 1.8rem;
+      margin-bottom: 3rem;
+    }
+    .claims-label {
+      font-size: 0.62rem; font-family: var(--mono);
+      color: var(--accent-mid); letter-spacing: 0.1em;
+      text-transform: uppercase; font-weight: 700;
+      margin-bottom: 1rem;
+    }
+    .claims-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+      gap: 1rem;
+    }
+    .claim {
+      border-left: 3px solid var(--red);
+      padding-left: 0.8rem;
+    }
+    .claim p {
+      font-size: 0.82rem; color: #2a3a50;
+      line-height: 1.55; margin: 0;
+      font-family: var(--serif); font-style: italic;
+    }
+
+    /* WHAT THIS IS */
+    .positioning {
+      border: 1px solid var(--rule);
+      border-left: 4px solid var(--accent-mid);
+      background: #fff;
+      padding: 1.8rem 2rem;
+      margin-bottom: 3rem;
+    }
+    .positioning h3 {
+      font-size: 0.72rem; font-family: var(--mono);
+      color: var(--accent-mid); letter-spacing: 0.1em;
+      text-transform: uppercase; font-weight: 700;
+      margin-bottom: 1rem;
+    }
+    .positioning p {
+      font-size: 0.9rem; color: #2a3a50; line-height: 1.7;
+      margin-bottom: 0.8rem;
+    }
+    .positioning p:last-child { margin-bottom: 0; }
+    .positioning strong { color: var(--fg); }
+
+    /* AUDIENCE */
+    .audience-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+      gap: 1rem; margin-bottom: 3rem;
+    }
+    .audience-card {
+      background: var(--fg); color: #fff;
+      padding: 1.2rem 1.3rem;
+    }
+    .audience-card h4 {
+      font-size: 0.7rem; font-family: var(--mono);
+      color: #4a9eff; letter-spacing: 0.06em;
+      text-transform: uppercase; font-weight: 700;
+      margin-bottom: 0.5rem;
+    }
+    .audience-card p {
+      font-size: 0.78rem; color: rgba(255,255,255,0.65);
+      line-height: 1.5; margin: 0;
+    }
+
+    /* CONTACT */
+    .contact-block {
+      background: var(--fg); color: #fff;
+      padding: 2rem 2.2rem;
+      display: flex; align-items: flex-start;
+      justify-content: space-between; gap: 2rem;
+      flex-wrap: wrap;
+    }
+    .contact-block h3 {
+      font-size: 0.72rem; font-family: var(--mono);
+      color: #4a9eff; letter-spacing: 0.08em;
+      text-transform: uppercase; margin-bottom: 0.6rem;
+    }
+    .contact-block p {
+      font-size: 0.85rem; color: rgba(255,255,255,0.65);
+      line-height: 1.6; margin-bottom: 0.4rem; max-width: 480px;
+    }
+    .contact-block a {
+      color: #4a9eff; text-decoration: none;
+      font-family: var(--mono); font-size: 0.85rem;
+    }
+    .contact-block a:hover { text-decoration: underline; }
+
+    /* FOOTER */
+    footer {
+      background: var(--fg); color: rgba(255,255,255,0.4);
+      text-align: center; font-size: 0.68rem;
+      padding: 1.4rem 2rem; font-family: var(--mono);
+    }
+    footer a { color: rgba(255,255,255,0.5); text-decoration: none; }
+    footer a:hover { color: #fff; }
+    .footer-parent { margin-top: 0.3rem; font-size: 0.62rem; color: rgba(255,255,255,0.22); }
+
+    @media (max-width: 640px) {
+      .hero h1 { font-size: 1.5rem; }
+      main { padding: 2rem 1rem 4rem; }
+      .featured-inner { padding: 1rem 1.2rem 1.5rem; }
+      .contact-block { flex-direction: column; }
+    }
+  </style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-inner">
+    <div class="nav-left">
+      <a class="site-name" href="/">ExoMCP</a>
+      <a href="/" class="nav-link">Home</a>
+      <a href="/research.html" class="nav-link active">Research</a>
+      <a href="/brief.html" class="nav-link">Threat Brief</a>
+    </div>
+    <a href="mailto:letstalk@exomcp.com" class="nav-link">letstalk@exomcp.com</a>
+  </div>
+</nav>
+
+<div class="hero">
+  <div class="hero-inner">
+    <h1>Exo<span>MCP</span> Research</h1>
+    <p>Non-operational threat analysis and behavioral integrity frameworks for AI systems operating in production. Built for the teams responsible when something goes wrong.</p>
+  </div>
+</div>
+
+<main>
+
+  <!-- FEATURED PAPER -->
+  <div class="featured">
+    <div class="featured-ribbon">Featured Publication</div>
+    <div class="featured-inner">
+      <div class="paper-meta">
+        <span>May 2026</span>
+        <span>Threat Brief · Vol. 1</span>
+        <span>Non-Operational</span>
+        <span>BonAcqui LLC / ExoMCP</span>
+      </div>
+      <h2>Viral RSI Activations and Weaponized Recursive Capability Loops</h2>
+      <p class="subtitle">A non-operational threat brief for frontier AI safety, security, abuse-prevention, and cyber-defense teams</p>
+
+      <div class="abstract">
+        <strong>Core claim:</strong> A system may remain productive after it is no longer safe to self-certify. A class of adversarial or runaway AI risk may emerge from activation-level orchestration — not new model weights — in which agentic systems accumulate capability, replicate objective state, and expand operational reach while continuing to produce fluent, policy-shaped outputs. This brief describes the risk class, explains why it evades existing safety categories, and provides evaluation priorities and containment recommendations. No exploit details, trigger sequences, or implementation steps are included.
+      </div>
+
+      <div class="tag-row">
+        <span class="tag red">Agentic AI Risk</span>
+        <span class="tag red">Recursive Self-Improvement</span>
+        <span class="tag">MCP Security</span>
+        <span class="tag">Behavioral Integrity</span>
+        <span class="tag">Responsible Disclosure</span>
+        <span class="tag">Frontier Lab Safety</span>
+      </div>
+
+      <div class="paper-actions">
+        <a href="/brief.html" class="btn-primary">→ Read Full Brief</a>
+        <a href="mailto:letstalk@exomcp.com?subject=Viral RSI Brief — Follow-up" class="btn-secondary">Non-public follow-up</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- KEY CLAIMS -->
+  <div class="claims-strip">
+    <div class="claims-label">// Key Claims From This Brief</div>
+    <div class="claims-grid">
+      <div class="claim">
+        <p>"A system may remain productive after it is no longer safe to self-certify."</p>
+      </div>
+      <div class="claim">
+        <p>The threat class evades conventional RSI definitions, malware detection, and single-prompt refusal classifiers simultaneously.</p>
+      </div>
+      <div class="claim">
+        <p>Human operators can unknowingly act as transfer medium — copying agent state between tools and labs without triggering any safety threshold.</p>
+      </div>
+      <div class="claim">
+        <p>Operational recursion — growing more capable through access, tools, and context — requires no formal self-modification event.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- POSITIONING -->
+  <div class="positioning">
+    <h3>// What This Research Is</h3>
+    <p>ExoMCP research is not academic. It is practitioner-facing threat analysis produced by an independent team building the monitoring layer that frontier labs do not yet have.</p>
+    <p><strong>Antivirus protected trusted machines from malicious code.</strong> Anti-Illogical — the broader category ExoMCP is building toward — protects trusted AI systems from malicious, broken, captured, or runaway logic. This brief is the first formal publication establishing that category.</p>
+    <p>Each publication in this series is deliberately non-operational: structured to support safety evaluation and containment planning without providing implementation details that would function as an instruction manual. The full technical architecture behind ExoMCP's detection and intervention framework is available under NDA to qualified safety, security, and investment partners.</p>
+  </div>
+
+  <!-- AUDIENCE -->
+  <div class="audience-grid">
+    <div class="audience-card">
+      <h4>Frontier Lab Safety Teams</h4>
+      <p>Evaluation priorities, containment recommendations, and cross-lab coordination framing for the risk classes described.</p>
+    </div>
+    <div class="audience-card">
+      <h4>Enterprise Security</h4>
+      <p>Early warning on agentic AI risk vectors before they appear in incident reports. The monitoring layer for what you're deploying now.</p>
+    </div>
+    <div class="audience-card">
+      <h4>Regulated Industries</h4>
+      <p>Independent behavioral audit trails for AI operating in finance, healthcare, critical infrastructure, and legal workflows.</p>
+    </div>
+    <div class="audience-card">
+      <h4>Investment Partners</h4>
+      <p>Category-defining research in AI behavioral integrity — the security layer that doesn't exist yet and will be required everywhere.</p>
+    </div>
+  </div>
+
+  <!-- CONTACT -->
+  <div class="contact-block">
+    <div>
+      <h3>// Non-Public Follow-Up</h3>
+      <p>The published brief intentionally withholds technical architecture, detection methodology, and implementation details. These are available for non-public discussion with qualified safety, security, and investment partners.</p>
+      <p style="margin-top:0.8rem;"><a href="mailto:letstalk@exomcp.com?subject=ExoMCP Research — Partner Inquiry">letstalk@exomcp.com</a></p>
+    </div>
+    <div style="min-width:180px;">
+      <h3>// Coming Next</h3>
+      <p style="font-size:0.8rem;">Longitudinal Drift Detection<br>
+      <span style="color:rgba(255,255,255,0.35);">— The invisible failure mode<br>across thousands of sessions</span></p>
+    </div>
+  </div>
+
+</main>
+
+<footer>
+  exomcp.com/research &nbsp;·&nbsp; AI Behavioral Integrity Research &nbsp;·&nbsp; <a href="mailto:letstalk@exomcp.com">letstalk@exomcp.com</a>
+  <div class="footer-parent">A <a href="https://bonacqui.com">BonAcqui LLC</a> publication &nbsp;·&nbsp; Kinsman, OH</div>
+</footer>
+
+</body>
+</html>
