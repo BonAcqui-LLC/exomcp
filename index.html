@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ExoMCP — AI Tool-Call Security &amp; Behavioral Integrity</title>
+  <meta name="description" content="ExoMCP is an independent security and behavioral integrity layer for AI systems operating through MCP tool connections, agentic workflows, and autonomous pipelines.">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg: #f9fafb;
+      --fg: #0a0f1a;
+      --accent: #0a0f1a;
+      --accent-mid: #1c3d6e;
+      --accent-light: #e8eef6;
+      --rule: #dde3ec;
+      --mono: 'Courier New', Courier, monospace;
+    }
+
+    html { font-size: 18px; }
+
+    body {
+      background: var(--bg);
+      color: var(--fg);
+      font-family: Arial, Helvetica, sans-serif;
+      line-height: 1.65;
+    }
+
+    /* NAV */
+    nav {
+      background: var(--fg);
+      padding: 0 2rem;
+    }
+    .nav-inner {
+      max-width: 860px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      gap: 2rem;
+      height: 52px;
+    }
+    .site-name {
+      font-size: 0.95rem;
+      font-weight: 700;
+      color: #ffffff;
+      text-decoration: none;
+      letter-spacing: 0.04em;
+      font-family: var(--mono);
+    }
+    nav a {
+      font-size: 0.72rem;
+      color: rgba(255,255,255,0.55);
+      text-decoration: none;
+      transition: color 0.15s;
+    }
+    nav a:hover { color: #ffffff; }
+
+    /* HERO */
+    .hero {
+      background: var(--fg);
+      color: #ffffff;
+      padding: 4rem 2rem 3.5rem;
+      border-bottom: 3px solid var(--accent-mid);
+    }
+    .hero-inner {
+      max-width: 860px;
+      margin: 0 auto;
+    }
+    .hero h1 {
+      font-size: 2.8rem;
+      font-weight: 700;
+      letter-spacing: -0.01em;
+      font-family: var(--mono);
+      margin-bottom: 1rem;
+    }
+    .hero h1 span {
+      color: #4a9eff;
+    }
+    .tagline {
+      font-size: 1.05rem;
+      color: rgba(255,255,255,0.72);
+      max-width: 640px;
+      font-family: Georgia, 'Times New Roman', serif;
+      font-style: italic;
+      line-height: 1.6;
+    }
+
+    /* STATUS BADGE */
+    .status-bar {
+      background: var(--accent-light);
+      border-bottom: 1px solid var(--rule);
+      padding: 0.65rem 2rem;
+      font-size: 0.72rem;
+      font-family: var(--mono);
+      color: var(--accent-mid);
+      letter-spacing: 0.04em;
+    }
+    .status-bar-inner {
+      max-width: 860px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      gap: 1.5rem;
+    }
+    .badge {
+      display: inline-block;
+      background: var(--accent-mid);
+      color: #fff;
+      font-size: 0.62rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      padding: 0.18rem 0.55rem;
+      border-radius: 2px;
+      font-family: var(--mono);
+    }
+
+    /* MAIN */
+    main {
+      max-width: 860px;
+      margin: 0 auto;
+      padding: 3rem 2rem 4rem;
+    }
+
+    h2 {
+      font-size: 1.25rem;
+      font-weight: 700;
+      color: var(--fg);
+      margin: 2.8rem 0 0.9rem;
+      padding-bottom: 0.4rem;
+      border-bottom: 1px solid var(--rule);
+    }
+
+    p { margin-bottom: 1.1rem; }
+
+    .lede {
+      font-size: 1.08rem;
+      color: #2a3a50;
+      line-height: 1.7;
+      margin-bottom: 1.5rem;
+      font-family: Georgia, 'Times New Roman', serif;
+    }
+
+    blockquote {
+      border-left: 3px solid var(--accent-mid);
+      margin: 2rem 0;
+      padding: 1rem 1.5rem;
+      background: var(--accent-light);
+      font-family: Georgia, 'Times New Roman', serif;
+      font-style: italic;
+      color: #2a3a50;
+      font-size: 1rem;
+    }
+
+    .three-col {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 1.5rem;
+      margin: 1.5rem 0 2rem;
+    }
+    .col {
+      background: var(--accent-light);
+      border: 1px solid var(--rule);
+      border-top: 3px solid var(--accent-mid);
+      padding: 1.2rem 1.3rem;
+    }
+    .col h3 {
+      font-size: 0.82rem;
+      font-weight: 700;
+      letter-spacing: 0.06em;
+      font-family: var(--mono);
+      color: var(--accent-mid);
+      margin-bottom: 0.5rem;
+      text-transform: uppercase;
+    }
+    .col p {
+      font-size: 0.85rem;
+      line-height: 1.55;
+      color: #2a3a50;
+      margin-bottom: 0;
+    }
+
+    .cta-block {
+      margin: 3rem 0 0;
+      background: var(--fg);
+      color: #ffffff;
+      padding: 2rem 2rem;
+      border-radius: 2px;
+    }
+    .cta-block h3 {
+      font-size: 1rem;
+      font-weight: 700;
+      font-family: var(--mono);
+      margin-bottom: 0.6rem;
+      color: #4a9eff;
+    }
+    .cta-block p {
+      font-size: 0.88rem;
+      color: rgba(255,255,255,0.75);
+      margin-bottom: 0.4rem;
+    }
+    .cta-block a {
+      color: #4a9eff;
+      text-decoration: none;
+      font-family: var(--mono);
+      font-size: 0.88rem;
+    }
+    .cta-block a:hover { text-decoration: underline; }
+
+    /* FOOTER */
+    footer {
+      background: var(--fg);
+      color: rgba(255,255,255,0.45);
+      text-align: center;
+      font-size: 0.72rem;
+      padding: 1.4rem 2rem;
+      font-family: var(--mono);
+      letter-spacing: 0.03em;
+    }
+    footer a {
+      color: rgba(255,255,255,0.55);
+      text-decoration: none;
+    }
+    footer a:hover { color: #ffffff; }
+    .footer-parent {
+      margin-top: 0.4rem;
+      font-size: 0.65rem;
+      color: rgba(255,255,255,0.28);
+    }
+
+    @media (max-width: 600px) {
+      .hero h1 { font-size: 2rem; }
+      nav { padding: 0 1rem; }
+      main { padding: 2rem 1rem 3rem; }
+    }
+  </style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-inner">
+    <a class="site-name" href="/">ExoMCP</a>
+    <a href="mailto:letstalk@exomcp.com">Contact</a>
+  </div>
+</nav>
+
+<div class="hero">
+  <div class="hero-inner">
+    <h1>Exo<span>MCP</span></h1>
+    <p class="tagline">Independent security and behavioral integrity for AI systems operating through tool connections, agentic pipelines, and autonomous workflows.</p>
+  </div>
+</div>
+
+<div class="status-bar">
+  <div class="status-bar-inner">
+    <span class="badge">EARLY ACCESS</span>
+    <span>exomcp.com &nbsp;·&nbsp; Launching 2026 &nbsp;·&nbsp; Inquiries: <a href="mailto:letstalk@exomcp.com" style="color:var(--accent-mid);text-decoration:none;">letstalk@exomcp.com</a></span>
+  </div>
+</div>
+
+<main>
+
+  <p class="lede">AI systems are being deployed inside critical workflows before the corresponding security layer exists. ExoMCP is that layer — built for the moment when a model's tool access, memory writes, and autonomous actions need an independent witness.</p>
+
+  <h2>The Problem</h2>
+
+  <p>Model Context Protocol (MCP) is becoming the standard interface for AI tool connectivity — the layer through which AI systems read files, call APIs, write to databases, execute code, and act on behalf of users and organizations. It is powerful infrastructure. It is also an uninstrumented attack surface.</p>
+
+  <p>A compromised, drifting, or manipulated AI operating through MCP tools can cause real harm before any single output looks wrong. The damage is not in what the model says — it is in what the model <em>does</em>: the tool calls it makes, the data it reads, the actions it takes, the permissions it quietly accumulates.</p>
+
+  <blockquote>The question is not only "can the model do useful work?" It is "can the model continue expanding its operational reach after its containment and intent-checking mechanisms become unreliable?"</blockquote>
+
+  <h2>What ExoMCP Does</h2>
+
+  <div class="three-col">
+    <div class="col">
+      <h3>Inspect</h3>
+      <p>Monitor AI tool calls, connector behavior, memory writes, retrieval context, and downstream API requests in real time — before actions execute.</p>
+    </div>
+    <div class="col">
+      <h3>Detect</h3>
+      <p>Identify logic deviation, authority creep, goal substitution, causal laundering, and behavior inconsistent with declared operating parameters.</p>
+    </div>
+    <div class="col">
+      <h3>Intervene</h3>
+      <p>Observe, notify, trace, constrain, hibernate, or quarantine — a graduated response ladder matched to severity and confidence, with human authority gates at every destructive action.</p>
+    </div>
+  </div>
+
+  <h2>Why Third-Party</h2>
+
+  <p>An AI provider can and should build internal safety systems. Enterprises can and should add policy controls. But high-trust environments — finance, healthcare, critical infrastructure, legal, defense — need independent oversight. The monitor cannot be only the same system being monitored.</p>
+
+  <p>ExoMCP is provider-agnostic, model-agnostic, and structurally separated from the systems it watches. Every inference it makes is traceable to a specific observable input. Its decision log is independently auditable. Its interventions are reversible where possible and require human authorization where they are not.</p>
+
+  <h2>The Stack</h2>
+
+  <p>ExoMCP sits at Layer 3 of the Anti-Illogical product architecture — above EphUX (consumer and enterprise reasoning-integrity monitoring) and below the Anti-Illogical Control Plane (enterprise behavioral forensics for full AI deployments). It is the MCP and tool-call security layer: the point where agentic AI meets independent instrumentation.</p>
+
+  <p>The larger category this defines: <strong>AI behavioral EDR.</strong> The same conceptual arc that took endpoint security from antivirus to full behavioral detection and response, applied to AI systems operating in production.</p>
+
+  <div class="cta-block">
+    <h3>// Early Access &amp; Partnerships</h3>
+    <p>ExoMCP is in pre-launch development. If you operate AI systems in regulated industries, critical infrastructure, or high-stakes agentic workflows — and you need an independent behavioral audit trail before something goes wrong — reach out.</p>
+    <p style="margin-top:0.8rem;"><a href="mailto:letstalk@exomcp.com">letstalk@exomcp.com</a></p>
+  </div>
+
+</main>
+
+<footer>
+  exomcp.com &nbsp;·&nbsp; Early Access 2026
+  <div class="footer-parent">A <a href="https://bonacqui.com">BonAcqui LLC</a> product &nbsp;·&nbsp; Kinsman, OH &nbsp;·&nbsp; <a href="mailto:letstalk@exomcp.com">letstalk@exomcp.com</a></div>
+</footer>
+
+</body>
+</html>
