@@ -1,0 +1,12 @@
+name = "exomcp"
+main = "worker.js"
+compatibility_date = "2025-01-01"
+account_id = "ae23bc612ecaa4ebbca2740eae4b5639"
+routes = [
+  { pattern = "exomcp.com/*", zone_name = "exomcp.com" },
+  { pattern = "www.exomcp.com/*", zone_name = "exomcp.com" }
+]
+
+[assets]
+directory = "."
+binding = "ASSETS"
