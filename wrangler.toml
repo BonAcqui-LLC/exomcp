@@ -1,5 +1,5 @@
 name = "exomcp"
-main = "worker.js"
+main = "api-worker.js"
 compatibility_date = "2025-01-01"
 account_id = "ae23bc612ecaa4ebbca2740eae4b5639"
 routes = [
@@ -10,3 +10,8 @@ routes = [
 [assets]
 directory = "."
 binding = "ASSETS"
+
+[[d1_databases]]
+binding = "DB"
+database_name = "exomcp-incidents"
+database_id = "50dbbcec-43f6-44cd-b246-3215effa5157"
